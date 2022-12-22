@@ -1,0 +1,38 @@
+{% extends 'includes/layout.html' %}
+
+
+{% block body %}
+<main class="container">
+  <div class="bg-light p-5 rounded mt-5">
+    <h1> 🐦 Generate Exchange Info 🐦 ️</h1>
+    <p class="lead">
+    Start generating tweet ideas with hashtags for your online social media campaigns on twitter. Create endless unique tweet ideas, no more writers block.
+    </p>
+
+    <h2>What is your tweet about?</h2>
+
+    <form class="" action="/exchange-info" method="post">
+
+      <div class="mb-3">
+        <label class="form-label">Exchange Name</label>
+        <input type="text" class="form-control" name="exchangeInfo" placeholder="eg. Binance, Coinbase">
+        <div class="form-text">Enter an Exchange name to generate information.</div>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg"> 💃 GET EXCHANGE INFO</button>
+
+    </form>
+  </div>
+
+
+  <div class="p-3 rounded">
+    <div class="row">
+      <div class="col-lg-12">
+        <h3 class="text-primary">{{prompt}}</h3>
+        <p class="lead">{{openAIAnswer}}</p>
+
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

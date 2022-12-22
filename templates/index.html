@@ -1,0 +1,195 @@
+{% extends 'includes/layout.html' %}
+
+
+{% block body %}
+<main class="container">
+  <div class="bg-light p-5 rounded mt-8"><center><br/><br/>
+      <a href="/"> <img id="pictureLogo" src="data:image/png;base64, {{img_data_logo}}" alt="logo" width="112" height="112"></a>
+    <h1> 👨‍👩‍👧‍👦 Mint an Ai NFT (Beta) 👨‍👩‍👧‍👦 </h1>
+    <p class="lead">
+    Mint an Ai NFT and join the innovative world of digital art! With a Mint an Ai NFT, <br>
+      you can create beautiful and unique digital artwork that is truly one-of-a-kind. <br>
+      Plus, when you Mint an Ai NFT, you are creating a digital asset that is backed by the blockchain and can be sold at any time for a profit.
+      It's the perfect way to express yourself, your values, and your creativity in the global digital art market. <br>
+      Plus, it's secure and easy to use!
+
+    </p>
+
+   </center>
+
+    <center>
+<iframe data-aa='2111074' src='//acceptable.a-ads.com/2111074' style='border:0px; padding:0; width:100%; height:100%; overflow:hidden; background-color: transparent;'></iframe>
+
+        <br />
+        <h3>Connect Your MetaMask Wallet Here!</h3>
+        <h5>(Optional Not Necessary to Mint)</h5>
+        <p>Your address will appear under the "Last Step" before you mint</p>
+    <button id='connectWallet' class="btn btn-primary btn-lg" onclick="">Get my Address</button>
+    <button id='getBalance' class="btn btn-primary btn-lg" onclick="checkBalance()">Get Balance of Wallet</button>
+
+
+    <p id="walletBalance"></p>
+
+         <h2>What is your NFT about?</h2>
+
+  <form class="" action="/" method="post">
+
+      <div class="col-lg-8 mb-8">
+        <div class="card">
+          <div class="card-header">
+            Mint an Ai NFT
+          </div>
+          <div class="card-body">
+            <h5 class="card-title"> 📺 Mint a Free Ai Art NFT 📺 </h5>
+            <div class="mb-3">
+        <label class="form-label">Generate an Ai Image</label>
+          <br/>
+          <div class="form-text">Enter the name of your NFT: </div>
+        <input type="text" class="form-control" name="imageGenerate" placeholder="eg. A beautiful horizon">
+        <br/>
+          <div class="form-text">Enter a description for your NFT: (This Generates the Image be detailed) </div>
+          <input type="text" class="form-control" name="imageDescription" placeholder="eg. A beautiful horizon shaped by the light of the sun">
+            <br/>
+          <div class="form-text">Give your NFT some properties: </div><br/>
+                <div class="form-text">Art Style: </div>
+                <input type="text" class="form-control" name="imageProp1" placeholder="eg. Pablo Picasso, Art Deco"><br/>
+                <div class="form-text">Date created: </div>
+        <input type="text" class="form-control" name="imageProp2" placeholder="eg. 12/21/2022 or 21 Dec 2022"><br/>
+                <div class="form-text">Artist: </div>
+        <input type="text" class="form-control" name="imageProp3" placeholder="eg. Bill Murry"><br/>
+
+                <hr/>
+                <br/>
+                <h4>LAST STEP:</h4>
+                <p>Make sure you are connected to the Polygon Network</p><br/>
+                <p>Please refer to this article if you need assistance connecting to Polygon</p>
+                <a href="https://coinmarketcap.com/alexandria/article/connect-metamask-to-polygon-network">CoinMarketCap - Connect Metamask to Polygon Network</a>
+                <br/><br/>
+                <p>**ONLY CLICK MINT ONCE** Wait 2 Minutes before minting again</p>
+        <div class="form-text">Enter your Polygon Address below before clicking Mint: </div>
+
+
+        <input type="text" class="form-control" name="addressLocation" placeholder="eg. 0xf5vd1vd..." ><h5 id="walletAddress"></h5></input>
+
+
+
+      </div>
+        <br/>
+      <button type="submit" class="btn btn-primary btn-lg" > 🖼️ MINT A FREE IMAGE</button>
+
+          </div>
+        </div>
+      </div>
+
+
+    </form>
+
+
+    <h3 class="text-primary">{{imgPrompt}}</h3>
+        <p class="lead">{{displayImage}}</p>
+        <img id="picture" src="data:image/png;base64, {{img_ai_data}}" alt="Ai Generated Image will appear here" width="512" height="512">
+      <br />
+        <h3 class="lead"> Check your address here: <a href="https://mumbai.polygonscan.com/"><p id="walletAddressMint"></p></a></h3>
+
+        <br />
+        <a href="https://opensea.io"> <button class="btn btn-primary btn-lg">View OpenSea Collection</button></a>
+        <hr/>
+
+        <div class="form-text">Hey there!<br/>
+
+If you’re using this free software to complete your projects, we’d love for you to consider donating to help keep the system running.<br/>
+
+We’re completely reliant on donations to continue offering this software for free, so any amount would be appreciated. <br/>
+        You can donate to the Polygon address: <br/> <b>0x2Da7C619dE01B218c8394f8Ca59B4E393e0e3a19</b> <br/>
+
+            <img id="pictureLogoQR" src="data:image/png;base64, {{img_data_qr}}" alt="logo" width="112" height="112">
+
+            <br/>
+
+We thank you in advance for your support! </div>
+
+        <iframe data-aa='2111074' src='//acceptable.a-ads.com/2111074' style='border:0px; padding:0; width:100%; height:100%; overflow:hidden; background-color: transparent;'></iframe>
+
+    </center>
+  </div>
+
+
+   <script type="text/javascript">
+      window.userWalletAddress = null
+      const connectWallet = document.getElementById('connectWallet')
+      const walletAddress = document.getElementById('walletAddress')
+      const walletBalance = document.getElementById('walletBalance')
+      const walletAddressMint = document.getElementById('walletAddressMint')
+
+
+
+      function checkInstalled() {
+        if (typeof window.ethereum == 'undefined') {
+          connectWallet.innerText = 'MetaMask isnt installed, please install it'
+          connectWallet.classList.remove()
+          connectWallet.classList.add()
+          return false
+        }
+        connectWallet.addEventListener('click', connectWalletwithMetaMask)
+      }
+
+      async function connectWalletwithMetaMask() {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+        .catch((e) => {
+        console.error(e.message)
+        return
+        })
+
+        if (!accounts) { return }
+
+        window.userWalletAddress = accounts[0]
+        walletAddress.innerText = window.userWalletAddress
+        walletAddressMint.innerText = window.userWalletAddress
+
+
+        connectWallet.innerText = 'Sign Out'
+        connectWallet.removeEventListener('click', connectWalletwithMetaMask)
+        setTimeout(() => {
+          connectWallet.addEventListener('click', signOutOfMetaMask)
+        }, 200)
+
+      }
+
+
+      function signOutOfMetaMask() {
+        window.userwalletAddress = null
+        walletAddress.innerText = ''
+        connectWallet.innerText = 'Connect Wallet'
+
+        connectWallet.removeEventListener('click', signOutOfMetaMask)
+        setTimeout(() => {
+          connectWallet.addEventListener('click', connectWalletwithMetaMask)
+        }, 200  )
+      }
+
+      async function checkBalance() {
+        let balance = await window.ethereum.request({ method: "eth_getBalance",
+        params: [
+          window.userWalletAddress ,
+          'latest',
+
+        ]
+      }).catch((err)=> {
+          console.log(err)
+      })
+
+      console.log(parseFloat((balance) / Math.pow(10,18)))
+
+      walletBalance.innerText = parseFloat((balance) / Math.pow(10,18))
+    }
+
+      window.addEventListener('DOMContentLoaded', () => {
+        checkInstalled()
+      })
+
+
+    </script>
+
+
+</main>
+{% endblock %}
